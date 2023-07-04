@@ -1,0 +1,12 @@
+.dropdown{
+    width: 25%;
+    margin-left: 2%;
+    margin-top: 1.5%;
+    /* float: left; */
+    
+}
+.dropdown h3{
+    position: relative;
+    
+    /* margin-top: 1%; */
+}

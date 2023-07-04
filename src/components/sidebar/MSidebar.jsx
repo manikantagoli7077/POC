@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 
-const Sidebar = ({handleLogout}) => {
+const MSidebar = ({handleLogout}) => {
   const { dispatch } = useContext(DarkModeContext);
   return (
     <div className="sidebar">
@@ -41,7 +41,7 @@ const Sidebar = ({handleLogout}) => {
               <span>Employee details</span>
             </li>
           </Link>
-          <Link to="/employee/emptimex" style={{ textDecoration: "none" }}>
+          <Link to="managertimex" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
               <span>Timex Reconciliation</span>
@@ -51,7 +51,7 @@ const Sidebar = ({handleLogout}) => {
             <CreditCardIcon className="icon" />
             <span>Asset Dashboard</span>
           </li>
-          <Link to="/employee/wfo" style={{ textDecoration: "none" }}>
+          <Link to="mwfo" style={{ textDecoration: "none" }}>
           <li>
             <LocalShippingIcon className="icon" />
             <span>WFO Details</span>
@@ -107,4 +107,4 @@ const Sidebar = ({handleLogout}) => {
   );
 };
 
-export default Sidebar;
+export default MSidebar;

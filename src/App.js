@@ -8,6 +8,17 @@ import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+import Timexreconcilation from "./pages/timexreconcilation/Timexreconcilation";
+import DataForm from "./components/timexcomponents/dataform/DataForm";
+import PreviousReconcilations from "./pages/timexreconcilation/PreviousReconcilations";
+import Employee from "./roles/Employee";
+import Emptimex from "./pages/timexreconcilation/Emptimex";
+import Manager from "./roles/Manager";
+import Managertimex from "./pages/timexreconcilation/Managertimex";
+import MEmployeerequests from "./pages/timexreconcilation/MEmployeerequests";
+import WfoPage from "./pages/wfo/WfoPage";
+import MWfoPage from "./pages/wfo/MWfoPage";
+import LoginScreen from "./pages/login/Login2";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -17,8 +28,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
+            <Route index element={<LoginScreen />} />
+            <Route path="login" element={<LoginScreen />} />
             <Route path="dashboard" element={<Home />} />
             <Route path="users">
               <Route index element={<List />} />
@@ -35,6 +46,26 @@ function App() {
                 path="new"
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
+            </Route>
+            <Route path="timexreconcilation">
+              <Route index element={<Timexreconcilation/>}/>
+              <Route path="dataform" element={<DataForm/>}/>
+              <Route path="previousreconcilations" element={<PreviousReconcilations/>}/>
+            </Route>
+            <Route path="employee">
+              <Route index element={<Employee/>}/>
+              <Route path="emptimex" element={<Emptimex/>}/>
+              <Route path="emptimex/dataform" element={<DataForm/>}/>
+              <Route path="emptimex/previousreconcilations" element={<PreviousReconcilations/>}/>
+              <Route path="wfo" element={<WfoPage/>}/>
+            </Route>
+            <Route path="manager">
+              <Route index element={<Manager/>}/>
+              <Route path="managertimex" element={<Managertimex/>}/>
+              <Route path="managertimex/dataform" element={<DataForm/>}/>
+              <Route path="managertimex/previousreconcilations" element={<PreviousReconcilations/>}/>
+              <Route path="managertimex/employeerequests" element={<MEmployeerequests/>}/>
+              <Route path="mwfo" element={<MWfoPage/>}/>
             </Route>
           </Route>
         </Routes>

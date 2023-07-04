@@ -5,11 +5,12 @@ import Widget from "../../components/widget/Widget";
 import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table";
+import MSidebar from "../../components/sidebar/MSidebar";
 
-const Home = ({handleLogout}) => {
+const MHome = ({handleLogout}) => {
   return (
     <div className="home">
-      <Sidebar handleLogout={handleLogout}/>
+      <MSidebar handleLogout={handleLogout}/>
       <div className="homeContainer">
         <Navbar  />
         <div className="widgets">
@@ -31,4 +32,4 @@ const Home = ({handleLogout}) => {
   );
 };
 
-export default Home;
+export default MHome;
