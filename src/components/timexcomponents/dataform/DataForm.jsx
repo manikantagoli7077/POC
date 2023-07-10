@@ -5,6 +5,8 @@ import 'semantic-ui-css/semantic.min.css'
 import Period from '../period/Period'
 import api from '../../../api/api'
 import uuid from 'react-uuid'
+import axios from 'axios'
+import MSidebar from '../../sidebar/MSidebar'
 
 class DataForm extends React.Component {
 
@@ -52,7 +54,10 @@ class DataForm extends React.Component {
             id:uuid(),
             ...list
         }
-        const response=await api.post("/api/test/otltimex/1",request)
+        let token = localStorage.getItem( "token" );
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        let empId=localStorage.getItem('empId');
+        const response=await axios.post(`http://localhost:8080/api/otltimex/${empId}`,request)
         this.setState([...list,response.data]);
         console.log(list)
     }
@@ -71,7 +76,7 @@ class DataForm extends React.Component {
         const {periodId}=this.state
         return (
             <div className="home">
-              <Sidebar />
+              <MSidebar />
               <div className="homeContainer" >
                 <Navbar />
                 <form onSubmit={this.submit}>

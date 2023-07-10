@@ -28,7 +28,7 @@ const MSidebar = ({handleLogout}) => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <Link to="/dashboard" style={{ textDecoration: "none" }}>
+          <Link to="/managerdashboard" style={{ textDecoration: "none" }}>
           <li>
             <DashboardIcon className="icon" />
             <span>Team Dashboard</span>
@@ -41,7 +41,7 @@ const MSidebar = ({handleLogout}) => {
               <span>Employee details</span>
             </li>
           </Link>
-          <Link to="managertimex" style={{ textDecoration: "none" }}>
+          <Link to="/managertimex" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
               <span>Timex Reconciliation</span>

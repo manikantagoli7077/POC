@@ -2,6 +2,9 @@ import React, { useEffect,useState } from 'react'
 import MSidebar from '../../components/sidebar/MSidebar'
 import Navbar from '../../components/navbar/Navbar'
 import api from '../../api/api'
+import axios from 'axios'
+
+
 const MEmployeerequests = () => {
 
     const [requests,setRequests]=useState([]);
@@ -12,6 +15,20 @@ const MEmployeerequests = () => {
       const approvedRequest = requests[index];
       setArchivedRequests([...archivedRequests, approvedRequest]);
       setRequests(requests.filter((_, i) => i !== index));
+      let token = localStorage.getItem( "token" );
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        let empId=localStorage.getItem('empId');
+  
+      //  const response=await api.get(`/api/getotltimexrequests/${empId}`);
+      //     return response.data
+      axios
+      .put(`http://localhost:8080/api/request/${empId}`)
+      .then((response) => {
+        setRequests(response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     }
     const handleRejection=(index)=>{
       const rejectedRequest = requests[index];
@@ -20,8 +37,20 @@ const MEmployeerequests = () => {
     }
   
     const retriveList=async()=>{
-      const response=await api.get('/api/test/getdata');
-      return response.data
+        let token = localStorage.getItem( "token" );
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        let empId=localStorage.getItem('empId');
+  
+      //  const response=await api.get(`/api/getotltimexrequests/${empId}`);
+      //     return response.data
+      axios
+      .get(`http://localhost:8080/api/getrequeststoparent/${empId}`)
+      .then((response) => {
+        setRequests(response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     }
   
     
@@ -52,32 +81,36 @@ const MEmployeerequests = () => {
       <div className="homeContainer">
         <Navbar />
         
-        <div className='main' style={{marginTop:"5%",marginLeft:"2%"}}>
-          <h2>Requests</h2>
-          <table className='ui table' style={{width:"80%"}}>
+        <div className='main' style={{marginTop:"1%",marginLeft:"2%"}}>
+          <h3>Requests</h3>
+          <table className='ui table small' style={{width:"80%",textAlign:"center"}}>
                 <thead>
                   <tr>
                     <th>Emp id</th>
+                    <th>Emp Name</th>
                     <th>Period</th>
                     <th>OTL</th>
                     <th>TIMEX</th>
                     <th>Comments</th>
-                    <th>Status</th>
+                    <th>Attachment</th>
+                    <th>Action</th>
                     
                   </tr>
                 </thead>
                 <tbody>
             
-          {requests.map((request,index)=>(
-                  <tr key={index}>
+          {requests.map((request,empId)=>(
+                  <tr key={empId}>
                     <td>{request.employeeId}</td>
+                    <td>{request.empName}</td>
                     <td>{request.periodId}</td>
-                    <td>{request.totalotl}</td>
-                    <td>{request.totaltimex}</td>
+                    <td>{request.totalOtlHours}</td>
+                    <td>{request.totalTimexHours}</td>
+                    <td>{request.comments}</td>
                     <td>{request.comments}</td>
                     <td>
-                      <button className='ui button blue' onClick={()=>handleApproval(index)}>Approve</button>
-                      <button className='ui button red' onClick={()=>handleRejection(index)}>Reject</button>
+                      <button className='ui button blue small' onClick={()=>handleApproval(empId)}>Approve</button>
+                      <button className='ui button red small' onClick={()=>handleRejection(empId)}>Reject</button>
                     </td>
                   </tr>
               
@@ -88,8 +121,8 @@ const MEmployeerequests = () => {
               </tr> */}
                 </tbody>
           </table>
-          <h2>Approved Requests</h2>
-          <table className='ui table' style={{width:"80%"}} >
+          <h3>Approved Requests</h3>
+          <table className='ui table small' style={{width:"80%",textAlign:"center"}} >
                 <thead>
                   <tr>
                     <th>Emp id</th>
@@ -123,8 +156,8 @@ const MEmployeerequests = () => {
               </tr> */}
                 </tbody>
           </table>
-          <h2>Rejected Requests</h2>
-          <table className='ui table' style={{width:"80%"}} >
+          <h3>Rejected Requests</h3>
+          <table className='ui table small' style={{width:"80%",textAlign:"center"}} >
                 <thead>
                   <tr>
                     <th>Emp id</th>
@@ -158,7 +191,7 @@ const MEmployeerequests = () => {
               </tr> */}
                 </tbody>
           </table>
-          <h2 style={{marginTop:"5%"}}>Footer</h2>
+          {/* <h2 style={{marginTop:"5%"}}>Footer</h2> */}
       </div>
     </div>
   

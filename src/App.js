@@ -1,4 +1,4 @@
-import Home from "./pages/home/Home";
+import Home from "./pages/home/EmployeeHome";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
@@ -18,14 +18,44 @@ import Managertimex from "./pages/timexreconcilation/Managertimex";
 import MEmployeerequests from "./pages/timexreconcilation/MEmployeerequests";
 import WfoPage from "./pages/wfo/WfoPage";
 import MWfoPage from "./pages/wfo/MWfoPage";
-import LoginScreen from "./pages/login/Login2";
+import LoginScreen from "./pages/login/LoginScreen";
+import MHome from "./pages/home/ManagerHome";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/">
+
+          <Route index element={<LoginScreen/>}/>
+
+          <Route path="employeedashboard">
+              <Route index element={<Home/>}/>
+          </Route>
+
+          <Route path="managerdashboard">
+              <Route index element={<MHome/>}/>
+          </Route>
+
+          <Route path="managertimex">
+            <Route index element={<Managertimex/>}/>
+            <Route path="dataform" element={<DataForm/>}/>
+            <Route path="previousreconcilations" element={<PreviousReconcilations/>}/>
+            <Route path="employeerequests" element={<MEmployeerequests/>}/>
+          </Route>
+
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
+
+
+
+      {/* <BrowserRouter>
         <Routes>
           <Route path="/">
             <Route index element={<LoginScreen />} />
@@ -69,7 +99,7 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }
