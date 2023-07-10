@@ -19,6 +19,7 @@ import MEmployeerequests from "./pages/timexreconcilation/MEmployeerequests";
 import WfoPage from "./pages/wfo/WfoPage";
 import MWfoPage from "./pages/wfo/MWfoPage";
 import LoginScreen from "./pages/login/Login2";
+import RequestsPage from "./components/wfo/Request";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -52,21 +53,12 @@ function App() {
               <Route path="dataform" element={<DataForm/>}/>
               <Route path="previousreconcilations" element={<PreviousReconcilations/>}/>
             </Route>
-            <Route path="employee">
-              <Route index element={<Employee/>}/>
               <Route path="emptimex" element={<Emptimex/>}/>
               <Route path="emptimex/dataform" element={<DataForm/>}/>
               <Route path="emptimex/previousreconcilations" element={<PreviousReconcilations/>}/>
               <Route path="wfo" element={<WfoPage/>}/>
-            </Route>
-            <Route path="manager">
-              <Route index element={<Manager/>}/>
-              <Route path="managertimex" element={<Managertimex/>}/>
-              <Route path="managertimex/dataform" element={<DataForm/>}/>
-              <Route path="managertimex/previousreconcilations" element={<PreviousReconcilations/>}/>
-              <Route path="managertimex/employeerequests" element={<MEmployeerequests/>}/>
-              <Route path="mwfo" element={<MWfoPage/>}/>
-            </Route>
+              <Route path="requests" element={<RequestsPage/>}/>
+            
           </Route>
         </Routes>
       </BrowserRouter>

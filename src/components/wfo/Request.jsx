@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Wfo.css'
 import { Button, Modal } from 'react-bootstrap';
 
 
@@ -89,10 +88,10 @@ function RequestsPage() {
       <h2>Requests Page</h2>
       <div className='table-container'>
       {requests.length === 0 ? (
-        <h1 className='no-request'>No requests are found</h1>
+        <h1 className='no-request' style={{marginLeft:"20%"}}>No requests are found</h1>
       ) : (
-      <table className='table table-bordered table-hover table-striped'>
-        <thead className='tablehead1'>
+      <table className='ui table' style={{width:"40%",marginLeft:"20%"}  }>
+        <thead className='table head'>
           <tr>
             {/* <th>Request ID</th> */}
             <th>RequestId</th>

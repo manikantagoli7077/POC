@@ -1,5 +1,4 @@
 import { useState, useEffect} from "react"
-import "./login.scss"
 import Home from "../home/Home";
 // import { useHistory } from 'react-router-dom'
 const Login = () => {

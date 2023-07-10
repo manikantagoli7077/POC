@@ -1,14 +1,13 @@
 import React from 'react'
-import Navbar from '../../components/navbar/Navbar'
 import Sidebar from '../../components/sidebar/Sidebar'
 import CalendarComponent from '../../components/wfo/CalenderComponent'
+import WfoNavbar from '../../components/navbar/WfoNavbar'
 const WfoPage = () => {
   return (
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        <Navbar />
-
+        <WfoNavbar/>
         <CalendarComponent/>
 
       </div>

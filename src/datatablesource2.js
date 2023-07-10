@@ -1,222 +1,140 @@
+import React from "react";
+import axios from "axios";
+
+export const fetchEmployeesData = async () => {
+  const token = localStorage.getItem('token');
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  const empId = localStorage.getItem('empId');
+
+  try {
+    const response = await axios.get(`http://localhost:8080/api/${empId}/children1`);
+    return response.data;
+  }
+   catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 export const userColumns = [
-    { field: "id", headerName: "Emp ID", width: 70 },
+    { field: "emp_id",
+     headerName: "Emp ID", 
+     width: 70 
+    },
+
     {
-      field: "EName",
+      field: "emp_name",
       headerName: "Employee Name",
       width: 230,
     },
     {
-      field: "EmailId",
+      field: "email",
       headerName: "Email ID",
       width: 230,
     },
   
     {
-      field: "EBandLatest",
+      field: "band_latest",
       headerName: "BandLatest",
       width: 100,
     },
     {
-        field: "EJoiningDateSopraSteria",
+        field: "joining_date_ss",
         headerName: "JoiningDate",
         width: 100,
     },
     {
-        field: "EJoiningDateTescoAccount",
+        field: "joining-date_tesco",
         headerName: "Tesco JoiningDate",
         width: 100,
     },
     {
-        field: "EEngagement",
+        field: "engagement",
         headerName: "Engagement",
         width: 100,
     },
     {
-        field: "ETeam",
+        field: "team",
         headerName: "Team Name",
         width: 100,
     },
     {
-        field: "ELineManager",
+        field: "line_manager",
         headerName: "Line Manager",
         width: 100,
     },
     {
-        field: "OfficeLocation",
+        field: "office_location",
         headerName: "Base Location",
         width: 100,
     },
     {
-        field: "Gender",
+        field: "gender",
         headerName: "Gender",
         width: 100,
     },
     {
-        field: "OTLCode",
+        field: "employee_otl_code",
         headerName: "OTL Code",
         width: 100,
     },
     {
-        field: "SSGExperience",
+        field: "experience_in_ssg",
         headerName: "SSG Exp",
         width: 100,
     },
     {
-        field: "TescoExperience",
+        field: "experience_in_tesco",
         headerName: "Tesco Exp",
         width: 100,
     },
+    
     {
-        field: "YearsInTesco",
-        headerName: "Years In Tesco",
-        width: 100,
-    },
-    {
-        field: "EContactNumber",
+        field: "contact_number",
         headerName: "Contact Number",
         width: 100,
     },
+   
     {
-        field: "Role1",
-        headerName: "Role",
-        width: 100,
-    },
+      field: "allocation_type",
+      headerName: "Allocation Type",
+      width: 100,
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    width: 100,
+},
+{
+  field: "pam_project_name",
+  headerName: "Pam Project Name",
+  width: 100,
+},
+{
+  field: "role_type",
+  headerName: "Role Type",
+  width: 100,
+},
+{
+  field: "role_1",
+  headerName: "Role",
+  width: 100,
+},
+
 
     {
-      field: "Status",
+      field: "status",
       headerName: "Status",
       width: 160,
       renderCell: (params) => {
         return (
-          <div className={`cellWithStatus ${params.row.Status}`}>
-            {params.row.Status}
+          <div className={`cellWithStatus ${params.row.status}`}>
+            {params.row.status}
           </div>
         );
       },
     },
   ];
   
-  //temporary data
-  export const userRows = [
-    {
-      "id": 153,
-      "EName": "rajram",
-      "EmailId": "ravi@soprasteria.com",
-      "EBandLatest": "band",
-      "EJoiningDateSopraSteria": 44052.22928240741,
-      "EJoiningDateTescoAccount": 44052.22928240741,
-      "EEngagement": "engage",
-      "ETeam": "merchandise",
-      "ELineManager": "shiva",
-      "OfficeLocation": "phiphines",
-      "Gender": "male",
-      "OTLCode": 7655,
-      "SSGExperience": 2,
-      "TescoExperience": 1,
-      "YearsInTesco": 1,
-      "EContactNumber": 90989908,
-      "Role1": "manager",
-      "Status": "active"
-    },
-    {
-      "id": 155,
-      "EName": "vital",
-      "EmailId": "vital@soprasteria.com",
-      "EBandLatest": "ba",
-      "EJoiningDateSopraSteria": 44813.22928240741,
-      "EJoiningDateTescoAccount": 44813.22928240741,
-      "EEngagement": "en",
-      "ETeam": "t",
-      "ELineManager": "ram",
-      "OfficeLocation": "ch",
-      "Gender": "female",
-      "OTLCode": 9393,
-      "SSGExperience": 1,
-      "TescoExperience": 1,
-      "YearsInTesco": 0,
-      "EContactNumber": 222882,
-      "Role1": "e",
-      "Status": "active"
-    },
-    {
-      "id": 156,
-      "EName": "suraj",
-      "EmailId": "suraj@soprasteria.com",
-      "EBandLatest": "ba",
-      "EJoiningDateSopraSteria": 44813.22928240741,
-      "EJoiningDateTescoAccount": 44813.22928240741,
-      "EEngagement": "en",
-      "ETeam": "t",
-      "ELineManager": "ram",
-      "OfficeLocation": "c",
-      "Gender": "female",
-      "OTLCode": 39393,
-      "SSGExperience": 1,
-      "TescoExperience": 1,
-      "YearsInTesco": 0,
-      "EContactNumber": 282,
-      "Role1": "e",
-      "Status": "active"
-    },
-    {
-      "id": 152,
-      "EName": "shiva",
-      "EmailId": "shiva@soprasteria.com",
-      "EBandLatest": "band",
-      "EJoiningDateSopraSteria": 44813.22928240741,
-      "EJoiningDateTescoAccount": 44813.22928240741,
-      "EEngagement": "engage",
-      "ETeam": "finance",
-      "ELineManager": "ram",
-      "OfficeLocation": "chennai",
-      "Gender": "male",
-      "OTLCode": 7657,
-      "SSGExperience": 3,
-      "TescoExperience": 1,
-      "YearsInTesco": 1,
-      "EContactNumber": 988899,
-      "Role1": "manager",
-      "Status": "active"
-    },
-    {
-      "id": 154,
-      "EName": "rajuramu",
-      "EmailId": "raju@soprasteria.com",
-      "EBandLatest": "band",
-      "EJoiningDateSopraSteria": 44052.22928240741,
-      "EJoiningDateTescoAccount": 44052.22928240741,
-      "EEngagement": "en",
-      "ETeam": "merchandise",
-      "ELineManager": "shiva",
-      "OfficeLocation": "phiphines",
-      "Gender": "female",
-      "OTLCode": 3939,
-      "SSGExperience": 1,
-      "TescoExperience": 1,
-      "YearsInTesco": 0,
-      "EContactNumber": 8999,
-      "Role1": "manager",
-      "Status": "active"
-    },
-    {
-      "id": 202,
-      "EName": "viratk",
-      "EmailId": "virat@soprasteria.com",
-      "EBandLatest": "ba",
-      "EJoiningDateSopraSteria": 44813.22928240741,
-      "EJoiningDateTescoAccount": 44813.22928240741,
-      "EEngagement": "en",
-      "ETeam": "t",
-      "ELineManager": "ram",
-      "OfficeLocation": "c",
-      "Gender": "female",
-      "OTLCode": 888,
-      "SSGExperience": 1,
-      "TescoExperience": 1,
-      "YearsInTesco": 0,
-      "EContactNumber": 290293,
-      "Role1": "e",
-      "Status": "active"
-    }
-  ];
+
   
