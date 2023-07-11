@@ -19,7 +19,7 @@ const Managertimex = () => {
         <div className="widgets">
           <Widget type="new" />
           <Widget type="old" />
-          <Widget type="rejected" />
+          {/* <Widget type="rejected" /> */}
           <Widget type="requests" />
         </div>
         <div className="charts">

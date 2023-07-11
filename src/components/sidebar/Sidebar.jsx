@@ -51,7 +51,7 @@ const Sidebar = ({handleLogout}) => {
             <CreditCardIcon className="icon" />
             <span>Asset Dashboard</span>
           </li>
-          <Link to="/employee/wfo" style={{ textDecoration: "none" }}>
+          <Link to="wfo" style={{ textDecoration: "none" }}>
           <li>
             <LocalShippingIcon className="icon" />
             <span>WFO Details</span>

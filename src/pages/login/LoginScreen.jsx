@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
-import { TextField, Button, Typography, Container,IconButton,InputAdornment } from '@material-ui/core';
+import { TextField, Button, Typography, Card, CardContent, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import api from '../../api/api'
+import api from '../../api/api';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 const useStyles = makeStyles((theme) => ({
-  container: {
+  wrapper: {
+    backgroundImage: 'url("https://www.soprasteria.be/images/librariesprovider2/sopra-steria-benelux-images/banner-inner-carousel-single-line-card-headquarters-(1560x515)/appviewx-header-1560-51531f68633e7fd6c36b458ff000034b0d9.png?sfvrsn=290beadc_0")',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  card: {
+    background: '#c8c8c7',
+    padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: theme.spacing(8),
   },
   textField: {
     marginBottom: theme.spacing(2),
   },
   button: {
     marginTop: theme.spacing(2),
-  },
-  inputContainer: {
-    width: '50%',
-  },
-  errorText: {
-    color: 'red',
-    marginBottom: theme.spacing(2),
-  },
+    alignSelf: 'flex-start',
+    marginRight:theme.spacing(8), 
+   },
 }));
 
 const LoginScreen = () => {
@@ -33,7 +38,6 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
@@ -43,101 +47,63 @@ const LoginScreen = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Your login logic here
-try{
-    const response=axios.post('http://localhost:8080/auth/signin', { email, password })
-      .then(res => {
+
+    axios
+      .post('http://localhost:8080/auth/signin', { email, password })
+      .then((res) => {
         const token = res.data.token;
-         const empId = res.data.empId;
+        const empId = res.data.empId;
 
         localStorage.setItem('token', token); // store token in local storage
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // set the default authorization header for all axios requests
-        localStorage.setItem('empId',empId);
-        // navigate('/employee/:empId', { state: { empId: empId } });
-            // navigate to the dashboard page
-            //  <Link to={"/employee/:empId" {state:{empId:empId}}}>
-            navigate('/managerdashboard')
-            
+        localStorage.setItem('empId', empId);
+        navigate('/managerdashboard'); // navigate to the dashboard page
       })
-      if (response.status === 200) {
-        // Successful login
-        setError('');
-        console.log('Login successful');
-      } else {
-        // Invalid credentials
-        setError('Please enter correct credentials');
-      }
-      // .catch(err => setError(err.response.data.message));
-    }
-    catch(error) {
-      console.error('Error:', error);
-    }
+      .catch((err) => setError(err.response.data.message));
 
     console.log(`Email: ${email}`);
     console.log(`Password: ${password}`);
-
   };
 
   return (
-    <Container maxWidth="xs">
-      <form className={classes.container} onSubmit={handleSubmit}>
-        <Typography variant="h4" gutterBottom>
-          Login
-        </Typography>
-        
-        {error && (
-          <Typography variant="body2" className={classes.errorText}>
-            {error}
-          </Typography>
-        )}
-        <div className={classes.inputContainer}>
-        <TextField
-          type="email"
-          label="Email"
-          variant="outlined"
-          className={classes.textField}
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
-        </div>
-        <div className={classes.inputContainer}>
-        <TextField
-          type={showPassword ? 'text' : 'password'}
-          label="Password"
-          variant="outlined"
-          className={classes.textField}
-          value={password}
-          onChange={handlePasswordChange}
-          required
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={handleTogglePassword}>
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        </div>
-        
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
-          Login
-        </Button>
-      </form>
-    </Container>
+    <div className={classes.wrapper}>
+      <Container maxWidth="xs">
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="h4" gutterBottom>
+              Login
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                type="email"
+                label="Email"
+                variant="outlined"
+                className={classes.textField}
+                value={email}
+                onChange={handleEmailChange}
+                required
+              />
+              <TextField
+                type="password"
+                label="Password"
+                variant="outlined"
+                className={classes.textField}
+                value={password}
+                onChange={handlePasswordChange}
+                required
+              />
+              <Button type="submit" variant="contained" color="primary" className={classes.button}>
+                Login
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </Container>
+    </div>
   );
 };
 

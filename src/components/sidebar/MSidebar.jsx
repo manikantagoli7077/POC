@@ -51,7 +51,7 @@ const MSidebar = ({handleLogout}) => {
             <CreditCardIcon className="icon" />
             <span>Asset Dashboard</span>
           </li>
-          <Link to="mwfo" style={{ textDecoration: "none" }}>
+          <Link to="/wfo" style={{ textDecoration: "none" }}>
           <li>
             <LocalShippingIcon className="icon" />
             <span>WFO Details</span>

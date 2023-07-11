@@ -15,11 +15,11 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="wrapper">
-        <div className="search">
+        <div className="search" style={{display: 'block', marginLeft: '25px'}}>
           <input type="text" placeholder="Search..." />
           <SearchOutlinedIcon />
         </div>
-        <div className="items">
+        <div className="items" style={{display: 'none'}}>
           <div className="item">
             <LanguageOutlinedIcon className="icon" />
             English

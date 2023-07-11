@@ -24,6 +24,7 @@ const Period=({period,onChange})=>{
         weekStart.setDate(weekStart.getDate()+1);
         }
         setWeekRanges(weekRanges);
+        console.log(weekRanges[0].start.toDateString()+'-'+weekRanges[0].end.toDateString());
     };
       
     updateWeekRanges();

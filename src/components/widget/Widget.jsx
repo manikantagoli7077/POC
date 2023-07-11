@@ -79,13 +79,13 @@ const Widget = ({ type }) => {
   }
 
   return (
-    <div className="widget">
+    <div className="widget" style={{display: 'inline-flex', marginTop :'0px'}}>
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
           {data.isMoney && "$"} {amount}
         </span>
-        <span className="link">{data.link}</span>
+        <span className="link" style={{display: 'none'}}>{data.link}</span>
       </div>
       <div className="right">
         <div className="percentage positive">

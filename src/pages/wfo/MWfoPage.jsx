@@ -1,14 +1,16 @@
 import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import Sidebar from '../../components/sidebar/Sidebar'
+import MSidebar from '../../components/sidebar/MSidebar'
+import CalenderComponent from '../../components/wfo/CalenderComponent'
 const MWfoPage = () => {
   return (
     <div className="home">
-      <Sidebar />
+      <MSidebar />
       <div className="homeContainer">
         <Navbar />
 
-        hello manager
+        <CalenderComponent/>
 
       </div>
     </div>

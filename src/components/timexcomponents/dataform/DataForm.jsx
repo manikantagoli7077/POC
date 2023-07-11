@@ -7,6 +7,7 @@ import api from '../../../api/api'
 import uuid from 'react-uuid'
 import axios from 'axios'
 import MSidebar from '../../sidebar/MSidebar'
+import { Button, Snackbar } from '@material-ui/core';
 
 class DataForm extends React.Component {
 
@@ -15,7 +16,6 @@ class DataForm extends React.Component {
 
     this.state={
 
-        id:"",
         periodId:"",
 
         monday:"",
@@ -39,15 +39,21 @@ class DataForm extends React.Component {
 
         comments:"",
         // list:""
+        open: false,
     };
 }
+
+    
+    
     
     addFormHandler=async(state)=>{
         const {monday,tuesday,wednesday,thursday,friday,cowd,cowe,sowd,sowe,coph,soph,mondayT,tuesdayT,wednesdayT,thursdayT,fridayT,overTimeT,comments,periodId}=this.state
-        const totalotl=parseInt(monday)+parseInt(tuesday)+parseInt(wednesday)+parseInt(thursday)+parseInt(friday)+parseInt(cowd)+parseInt(cowe)+parseInt(sowd)+parseInt(sowe)+parseInt(coph)+parseInt(soph)
-        const totaltimex=parseInt(mondayT)+parseInt(tuesdayT)+parseInt(wednesdayT)+parseInt(thursdayT)+parseInt(fridayT)+parseInt(overTimeT)
+        const totalOtlHours=parseInt(monday)+parseInt(tuesday)+parseInt(wednesday)+parseInt(thursday)+parseInt(friday)+parseInt(cowd)+parseInt(cowe)+parseInt(sowd)+parseInt(sowe)+parseInt(coph)+parseInt(soph)
+        const totalTimexHours=parseInt(mondayT)+parseInt(tuesdayT)+parseInt(wednesdayT)+parseInt(thursdayT)+parseInt(fridayT)+parseInt(overTimeT)
+        console.log(totalOtlHours)
+        console.log(totalTimexHours)
         const list={
-            monday,tuesday,wednesday,thursday,friday,cowd,cowe,sowd,sowe,coph,soph,mondayT,tuesdayT,wednesdayT,thursdayT,fridayT,overTimeT,comments,periodId,totalotl,totaltimex
+            monday,tuesday,wednesday,thursday,friday,cowd,cowe,sowd,sowe,coph,soph,mondayT,tuesdayT,wednesdayT,thursdayT,fridayT,overTimeT,comments,periodId,totalOtlHours,totalTimexHours
           }
           console.log(list)
           const request={
@@ -65,15 +71,21 @@ class DataForm extends React.Component {
     handlePeriodChange=(value)=>{
         this.setState({periodId:value})
     }
+    handleClose = () => {
+        this.setState({ open: false });
+      };
 
     submit=(e)=>{
         e.preventDefault();
         console.log(this.state)
         this.addFormHandler();
+        this.setState({ open: true });
     }
 
     render(){
-        const {periodId}=this.state
+        
+        const {periodId}=this.state;
+        const { open } = this.state;
         return (
             <div className="home">
               <MSidebar />
@@ -161,6 +173,13 @@ class DataForm extends React.Component {
                         </div>
                     </div>
                     <button type="submit" className="ui button red" style={{marginTop:"15%"}} >Submit</button>
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={3000} // Adjust the duration as needed
+                        onClose={this.handleClose}
+                        message="Submitted successfully"
+                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                     />
                 </form>
                 </div>
             </div>

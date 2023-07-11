@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Wfo.css'
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Navbar } from 'react-bootstrap';
+import MSidebar from '../sidebar/MSidebar';
 
 
 function RequestsPage() {
@@ -84,15 +84,19 @@ function RequestsPage() {
 
  
   return (
-    <div>
-
-      <h2>Requests Page</h2>
-      <div className='table-container'>
+    <div className="home">
+      <MSidebar />
+      <div className="homeContainer">
+        <Navbar />
+        
+      
+      <div className='main' style={{marginLeft:"5%",marginTop:"3%"}}>
+      <h3>Requests</h3>
       {requests.length === 0 ? (
-        <h1 className='no-request'>No requests are found</h1>
+        <h1 className='no-request' style={{marginLeft:"20%"}}>No requests are found</h1>
       ) : (
-      <table className='table table-bordered table-hover table-striped'>
-        <thead className='tablehead1'>
+      <table className='ui table small' style={{width:"80%",marginLeft:"0%",marginTop:"3%"}  }>
+        <thead className='table head'>
           <tr>
             {/* <th>Request ID</th> */}
             <th>RequestId</th>
@@ -144,6 +148,8 @@ function RequestsPage() {
       </div>
       
     </div>
+    </div>
+  
       
   );
 }

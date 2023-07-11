@@ -20,6 +20,7 @@ import WfoPage from "./pages/wfo/WfoPage";
 import MWfoPage from "./pages/wfo/MWfoPage";
 import LoginScreen from "./pages/login/LoginScreen";
 import MHome from "./pages/home/ManagerHome";
+import RequestsPage from "./components/wfo/Request";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -46,6 +47,15 @@ function App() {
             <Route path="dataform" element={<DataForm/>}/>
             <Route path="previousreconcilations" element={<PreviousReconcilations/>}/>
             <Route path="employeerequests" element={<MEmployeerequests/>}/>
+          </Route>
+
+          <Route path="wfo">
+            <Route index element={<MWfoPage/>}/>
+            <Route path="requests" element={<RequestsPage/>}/>  
+
+          </Route>
+          <Route path="users">
+            <Route index element={<List/>}/>
           </Route>
 
         </Route>

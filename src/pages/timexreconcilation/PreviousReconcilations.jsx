@@ -45,7 +45,7 @@ const PreviousReconcilations = () => {
       <div className="homeContainer">
         <Navbar />
         {/* <Datatable/> */}
-        <div className='main' style={{width:"70%",marginLeft:"2%",marginTop:"2%"}}>
+        <div className='main' style={{width:"80%",marginLeft:"2%",marginTop:"2%"}}>
             <table className='ui table small' style={{textAlign:"center"}}>
                 <thead>
                     <th style={{width:"30%"}}>Period</th>

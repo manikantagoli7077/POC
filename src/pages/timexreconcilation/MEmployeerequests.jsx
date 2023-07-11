@@ -3,6 +3,8 @@ import MSidebar from '../../components/sidebar/MSidebar'
 import Navbar from '../../components/navbar/Navbar'
 import api from '../../api/api'
 import axios from 'axios'
+import { Button, Modal } from 'react-bootstrap';
+
 
 
 const MEmployeerequests = () => {
@@ -10,26 +12,47 @@ const MEmployeerequests = () => {
     const [requests,setRequests]=useState([]);
     const [archivedRequests, setArchivedRequests] = useState([]);
     const [rejectedRequests, setRejectedRequests] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);
+    const [notification,setNotification]=useState('');
+
+
+    const handlePopupClose = () => {
+      setShowPopup(false);
+      setNotification('');
+      window.location.reload();
+      
+    };
+
+
+
+    
   
     const handleApproval=(index)=>{
       const approvedRequest = requests[index];
       setArchivedRequests([...archivedRequests, approvedRequest]);
       setRequests(requests.filter((_, i) => i !== index));
-      let token = localStorage.getItem( "token" );
+        
+        let token = localStorage.getItem( "token" );
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        let empId=localStorage.getItem('empId');
-  
-      //  const response=await api.get(`/api/getotltimexrequests/${empId}`);
-      //     return response.data
+        let periodId = approvedRequest.periodId;
+
+       
       axios
-      .put(`http://localhost:8080/api/request/${empId}`)
+      .put(`http://localhost:8080/api/update-otltimex/${periodId}`,{
+        status:'APPROVED'
+      })
       .then((response) => {
-        setRequests(response.data);
+        setRequests(response.data.status);
+        setNotification('You Have Agreed To The request')
+        setShowPopup(true)
+
       })
       .catch((error) => {
         console.error('Error:', error);
       });
     }
+
+
     const handleRejection=(index)=>{
       const rejectedRequest = requests[index];
       setRejectedRequests([...rejectedRequests, rejectedRequest]);
@@ -111,6 +134,20 @@ const MEmployeerequests = () => {
                     <td>
                       <button className='ui button blue small' onClick={()=>handleApproval(empId)}>Approve</button>
                       <button className='ui button red small' onClick={()=>handleRejection(empId)}>Reject</button>
+
+                      <Modal show={showPopup} onHide={handlePopupClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Notification</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+      {notification}
+      </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handlePopupClose} >
+              Close          
+            </Button>
+        </Modal.Footer>
+      </Modal>
                     </td>
                   </tr>
               
@@ -120,7 +157,7 @@ const MEmployeerequests = () => {
                 <td>{requests[0].periodId}</td>
               </tr> */}
                 </tbody>
-          </table>
+          </table >
           <h3>Approved Requests</h3>
           <table className='ui table small' style={{width:"80%",textAlign:"center"}} >
                 <thead>

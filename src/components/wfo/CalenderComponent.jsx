@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { CalenderEntry } from '../../services/CalenderService';
@@ -27,6 +27,7 @@ const CalenderComponent = () => {
   const [remainingEntries,setRemainingEntries] = useState([]);
 
   const latestEntries = calendarEntries.slice(0, 5); // Get the latest five entries
+
 
   useEffect(() => {
     // Fetch the calendar entries on component mount
@@ -98,9 +99,11 @@ const CalenderComponent = () => {
   const handleSubmit = (e) =>  {
     
     e.preventDefault(); 
+
     // const formattedDate = formatDate(actualDate);
 
     // Make the POST request to save the calendar entry
+    
     CalenderEntry(actualDate,changedDate,reason)
       .then((data) => {
         
@@ -114,7 +117,8 @@ const CalenderComponent = () => {
       .catch((error) => {
         console.error('Error:', error);
       });
-  };
+
+}
   const handlePopupClose = () => {
     setShowPopup(false);
     window.location.reload();
@@ -128,22 +132,22 @@ const CalenderComponent = () => {
   return (
     <div>
       <div className='main' style={{float:"left",width:"20%"}}>
-        <Link to="/requests">
+        <Link to="/wfo/requests">
             <button className='ui button red' style={{marginLeft:"10%",marginTop:"10%"}}>Show Requests</button>
         </Link>
       </div>
-      <div className='ui text'>
+      <div >
         {empName && (
-            <p>
-                Hi <span>{empName}</span>, Please inform <span>{managerName}</span> about the change in your work from home date
-            </p>
+            <p style={{display:"none"}}>
+            Hi   <span style={{ fontWeight: 'bold',fontFamily:'serif',fontSize:'25px' }}>{empName}</span>, please inform <span style={{fontFamily:'cursive',fontWeight:'bold'}}>{managerName} </span>about the change in your work from home dates.
+          </p>
             
         )}
         <div className='ui container' style={{borderWidth:"0px",border:"",width:"40%",float:"left",marginTop:"2%"}}>
                 <div className='ui form' style={{padding:'10px',background:"white",paddingLeft:"10%"}}>
                     <div className='ui message'>
                      <h3 className='ui heading' style={{marginBottom:"5%"}} >Update Work-from-home dates</h3>
-                        <form>
+                        <form  onSubmit={handleSubmit}>
                         
                              
                             <div className='form-group' style={{width:"50%",marginTop:"2%"}}>
@@ -155,6 +159,7 @@ const CalenderComponent = () => {
                                     onChange={handleDateChange}
                                     dateFormat="dd/MM/yyyy" // Set the desired display format
                                     placeholderText='DD/MM/YYYY'
+                                    required
                                     
                                     />
                             </div>
@@ -168,13 +173,17 @@ const CalenderComponent = () => {
                                     onChange={handleDateChangec}
                                     dateFormat="dd/MM/yyyy" // Set the desired display format
                                     placeholderText='DD/MM/YYYY'
+                                    required
                                     
                                     />
                             </div>
-                            
+ 
                             <div className='ui form' style={{width:"60%",marginTop:"5%"}}> 
                             <label htmlFor="reason" style={{fontSize:"17px",marginTop:"10%"}}>Reason:</label>
-                                <textarea placeholder='Please tell us' id='reason' rows="4"></textarea>
+                                <textarea placeholder='Please tell us' id='reason' rows="4" onChange={(e) => setReason(e.target.value)}
+                                required>
+                                  
+                                </textarea>
                             </div>
                             <button className='ui button red' style={{marginTop:"8%"}}>Submit</button>
                             <Modal show={showPopup} onHide={handlePopupClose}>
@@ -199,7 +208,8 @@ const CalenderComponent = () => {
                 </div>
                 
         </div>
-                        <button className='ui button blue' style={{float:"right",marginRight:"10%",marginTop:"2%"}}>Show Archived</button>
+                        <button className='ui button blue' onClick={handleArchivedButtonClick} style={{float:"right",marginRight:"10%",marginTop:"2%"} }>Show Archived</button>
+                        {showArchived && <ArchievedEntries entries={archivedEntries} />}
       </div>
       <div className='table-container' style={{width:"80%",marginLeft:"5%"}} >
                 <table className='ui table ' >

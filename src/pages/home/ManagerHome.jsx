@@ -13,17 +13,17 @@ const MHome = ({handleLogout}) => {
       <MSidebar handleLogout={handleLogout}/>
       <div className="homeContainer">
         <Navbar  />
-        <div className="widgets">
+        <div className="widgets" style={{display:'inline-flex', width:'100%'}}>
           <Widget type="user" />
           <Widget type="order" />
           <Widget type="earning" />
           <Widget type="balance" />
         </div>
-        <div className="charts">
+        <div className="charts" style={{display:'inline-flex', width:'100%'}}>
           <Featured />
           <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
         </div>
-        <div className="listContainer">
+        <div className="listContainer" style={{display:'none', width:'100%'}}>
           <div className="listTitle">Latest Transactions</div>
           <Table />
         </div>
